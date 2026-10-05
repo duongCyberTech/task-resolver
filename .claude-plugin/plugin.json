@@ -1,0 +1,6 @@
+{
+  "name": "task-resolver",
+  "version": "1.0.0",
+  "description": "Task Resolver Plugin with clear instructions and workflow automation.",
+  "author": { "name": "Mai Dang Duong", "email": "maidangduong92tn@gmail.com" }
+}
