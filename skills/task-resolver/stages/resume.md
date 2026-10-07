@@ -1,4 +1,4 @@
-# Resume and adopt (`/trlr:resume [task-logs folder]`)
+# Resume and adopt (`/task-resolver:resume [task-logs folder]`)
 
 ## Resume an archived task
 
@@ -13,12 +13,13 @@
    - Compare the current branch with the one recorded.
    - Confirm the key files are still in the tree.
    - Check for requirement drift. The workframe probably holds a different task by now, so work from the snapshot and don't overwrite it.
-   - Check the migrations and the test DB state.
+   - Check that pending migrations and the test database (or other fixtures) match the code, using the project profile's commands.
+   - Check that the project profile still matches the repo (re-run `detect-stack.sh` if the stack may have changed).
 5. Report where the task stands, then continue with the router.
 
 **Archives made before this skill existed** have no STATUS.md. Build one using the Adopt table below, reading the SUMMARY's Outcome or Checkpoint table first.
 
-## Adopt a workspace started by `/implement-task`
+## Adopt a workspace started by hand or by another tool
 
 The workspace has stage folders with files in them, but no STATUS.md. Build STATUS from what the folders show:
 

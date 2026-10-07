@@ -7,9 +7,12 @@
 | Loop | 1 |
 | Branch at intake | `<from .git/HEAD>` |
 | Requirements | `.claude/workflows/workframe/requirements/index.md` → <files> |
+| Project profile | `.claude/workflows/workframe/project.md` — <stack, one line> (confirmed <date> / draft) |
 | Snapshot | `requirements/` taken <date> (at intake / at adoption) |
+| Stages | <from config.json at intake: requirements, discuss, plan, …> — excluded: <list / none> |
+| Plan format | markdown / html (html-plan, scope <…>) / markdown (--html declined <date>) |
 | **Current stage** | <e.g. Discuss — ⏸ waiting at G1> |
-| **Next action** | <e.g. user answers Q1–Q5, then `/trlr:next`> |
+| **Next action** | <e.g. user answers Q1–Q5, then `/task-resolver:next`> |
 
 ## Constraints (from the requirement and `workframe/rules/`)
 
@@ -22,7 +25,7 @@
 
 ## Checkpoint
 
-Icons: ⬜ not started · ▶ in progress · ⏸ waiting at gate · ✅ done · ⏭ skipped (user's call) · ⛔ blocked · ♻ superseded · ⟳ rework
+Icons: ⬜ not started · ▶ in progress · ⏸ waiting at gate · ✅ done · ⏭ skipped (user's call, or `excluded (config)`) · ⛔ blocked · ♻ superseded · ⟳ rework
 
 | # | Stage | Status | Date | Notes |
 |---|---|---|---|---|

@@ -1,8 +1,13 @@
-# Stage 8: security audit (`/trlr:audit`)
+# Stage 7: security audit (`/task-resolver:audit`)
 
 **Scope:** the change set only. That means the working-tree diff (where git reads are allowed) plus every new file listed in `implementation/index.md`. Pre-existing issues are out of scope; record any you notice as side findings.
 
-1. Run the project's `security-audit` skill (`.claude/skills/security-audit/`) as a focused review of that scope. Where the old `workflow.md` says "cloudflare/security-audit", this is the skill it means. If the skill isn't available, use the built-in `security-review` and say so in the report.
+1. Run a focused security review of that scope. Use the first one available, and record which one ran:
+   1. a `security-audit` skill, if the workflow config lists one, or one is installed (then add it to the config);
+   2. the built-in `security-review`;
+   3. your own pass, using the checklist below.
+
+   Whichever ran, also cover what applies to this stack: injection (SQL, shell, template, path), authN and authZ on every new entry point, secrets in code or logs, unsafe deserialisation, SSRF, XSS and CSRF for web UIs, dependency additions (known CVEs, typosquats), and unsafe memory or `unsafe` blocks in native code.
 2. Write `testing/audits/index.md` ([template](../templates/audit.md)). It records:
    - the date and the scope, as a file list;
    - the method and which skill was used;

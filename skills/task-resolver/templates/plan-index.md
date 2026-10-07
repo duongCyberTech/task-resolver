@@ -2,6 +2,7 @@
 
 **Requirement:** [`requirements/index.md`](../requirements/index.md) → <files>
 **Decisions this plan implements:** [`../discussion/0N-decisions.md`](../discussion/0N-decisions.md)
+**HTML view:** <[html/index.html](html/index.html) — only with `--html`; otherwise delete this line>
 **Mockups / frames:** <paths, or "none in the repo — built from …">
 
 | # | Sub-task | Serves | Files | Status |

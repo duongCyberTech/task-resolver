@@ -24,7 +24,7 @@ Not a substitute for the scenarios; noted so execution focuses on what hasn't be
 
 ## Environment notes for whoever executes these
 
-- <login, ports, mail catcher, asset state, DB state>
+- <how to run the system, logins, URLs or ports, mail catcher, build state, data state>
 
 ---
 

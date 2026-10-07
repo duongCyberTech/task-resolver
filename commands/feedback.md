@@ -1,9 +1,6 @@
 ---
-name: "TRLR: Feedback"
 description: "Process feedback from chat and workframe/feedbacks, then reloop (back to discuss) or end the task"
 argument-hint: "[reloop|end] [notes]"
-category: "Workflow"
-tags: ["workflow", "task-resolver"]
 disallowed-tools:
   - Bash(git add *)
   - Bash(git commit *)
@@ -27,12 +24,12 @@ disallowed-tools:
   - Bash(git branch -D *)
 ---
 
-Load the **task-resolver** skill (Skill tool, or read `.claude/skills/task-resolver/SKILL.md`). Its paths, non-negotiables, STATUS protocol and gate protocol apply throughout.
+Invoke the **task-resolver** skill with the Skill tool (`task-resolver:task-resolver`). Only if that fails, read `${CLAUDE_PLUGIN_ROOT}/skills/task-resolver/SKILL.md`. Its paths, non-negotiables, STATUS protocol and gate protocol apply throughout.
 
-Then follow `.claude/skills/task-resolver/stages/feedback.md`:
+Then follow `${CLAUDE_PLUGIN_ROOT}/skills/task-resolver/stages/feedback.md`:
 
 - **reloop:** move the finished loop's stage folders into `loops/loop-N/` (never delete them), then run the discussion again with the feedback as the change to the requirement.
-- **end:** mark the task as ended and suggest `/trlr:archive`.
+- **end:** mark the task as ended and suggest `/task-resolver:archive`.
 - **Neither given:** classify the feedback, then ask which one.
 
 Arguments: $ARGUMENTS

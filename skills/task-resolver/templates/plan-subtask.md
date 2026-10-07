@@ -27,11 +27,11 @@
 
 ## Edge cases
 
-- <empty, duplicate, concurrent, permission-less, legacy data, Turbo restore, hidden element…>
+- <empty, duplicate, concurrent, permission-less, legacy data, large input, unicode, timezone, retry, partial failure…>
 
 ## Tests
 
-- `<test file>` — <the cases, including the one that proves the guard bites>
+- `<test file>` (run: `<profile test command> <file>`) — <the cases, including the one that proves the guard bites>
 
 ## Unclear issues
 

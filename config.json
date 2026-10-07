@@ -1,0 +1,6 @@
+{
+  "stages": ["requirements", "discuss", "plan", "implement", "test", "audit", "code review", "feedback", "archive"],
+  "plugins": [],
+  "mcps": [],
+  "skills": []
+}

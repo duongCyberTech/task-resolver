@@ -7,7 +7,7 @@
 ## Testing flows
 
 1. <setup: as whom, on which record>
-2. <action>. **Expect:** <observable result — in the UI and, where it matters, in the DB>
+2. <action>. **Expect:** <observable result — in the UI / response / output and, where it matters, in stored state>
 3. …
 
 ## Notes

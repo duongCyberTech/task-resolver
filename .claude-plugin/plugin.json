@@ -1,6 +1,8 @@
 {
   "name": "task-resolver",
-  "version": "1.0.0",
-  "description": "Task Resolver Plugin with clear instructions and workflow automation.",
-  "author": { "name": "Mai Dang Duong", "email": "maidangduong92tn@gmail.com" }
+  "displayName": "Task Resolver",
+  "version": "2.0.0",
+  "description": "Gated, logged task workflow for any language or framework: requirements → discuss → plan → implement → test → audit → code review → feedback → archive, with a live STATUS checkpoint, a detected per-repo project profile, and verified archiving.",
+  "author": { "name": "Mai Dang Duong", "email": "maidangduong92tn@gmail.com" },
+  "keywords": ["workflow", "task", "planning", "code-review", "testing", "audit", "polyglot"]
 }

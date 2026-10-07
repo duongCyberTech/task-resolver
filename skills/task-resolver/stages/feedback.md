@@ -1,4 +1,4 @@
-# Stage 10: feedback (`/trlr:feedback [reloop|end] [notes]`)
+# Stage 9: feedback (`/task-resolver:feedback [reloop|end] [notes]`)
 
 **Input:** the user's message, plus any files in `workframe/feedbacks/` newer than the last loop.
 
@@ -19,6 +19,4 @@
 
    **end**
    1. Set STATUS to Feedback ✅ and record `Task ended <date>`.
-   2. Suggest `/trlr:archive`.
-
-The old `workflow.md` refers to `/re-loop` and `/end-loop`. Those map to these two paths.
+   2. Suggest `/task-resolver:archive`.

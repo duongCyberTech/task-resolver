@@ -18,7 +18,7 @@ restating next to the code; what was cleared>
 
 | Claim | How |
 |---|---|
-| <finding> | <test / app / console / query count — or "code reading only" and why> |
+| <finding> | <test / running system / console / measured count — or "code reading only" and why> |
 
 ## Open — for the feedback gate
 

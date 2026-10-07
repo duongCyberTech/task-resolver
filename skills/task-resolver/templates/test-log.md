@@ -2,7 +2,7 @@
 
 ## Description
 
-Run on <record / campaign>, as <user>, starting from <state>.
+Run on <environment / record / input>, as <user or caller>, starting from <state>.
 
 | Step | Expected | Observed |
 |---|---|---|

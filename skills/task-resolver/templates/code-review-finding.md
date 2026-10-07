@@ -9,7 +9,7 @@
 
 ## Evidence
 
-<how it was reproduced: test, app, console, measured query count>
+<how it was reproduced: test, running system, console, measured count>
 
 ## Fix / options
 

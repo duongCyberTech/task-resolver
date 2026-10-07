@@ -27,3 +27,6 @@ Nothing is implemented; this stage is discussion only.
 ⛩ **Gate G1 — decisions needed before planning.** Q1–Q<n> in
 [04-open-questions.md](04-open-questions.md), each with a recommendation. Reply "go" to accept all
 of them, or answer by number (e.g. "Q2: B").
+<!-- only while the project profile is a draft: -->
+Also confirm the commands in [`workframe/project.md`](.claude/workflows/workframe/project.md) (build, test,
+lint, run), or correct any that are wrong.

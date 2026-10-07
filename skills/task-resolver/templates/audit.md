@@ -2,7 +2,7 @@
 
 **Date:** <YYYY-MM-DD>
 **Scope:** this change set only — <diff + new files, listed>. Pre-existing issues are out of scope.
-**Method:** <`security-audit` skill, focused review / built-in `security-review` (why)> — an
+**Method:** <`security-audit` skill / built-in `security-review` / own checklist pass (why)> — an
 identification pass, then a verification pass per candidate.
 
 ---

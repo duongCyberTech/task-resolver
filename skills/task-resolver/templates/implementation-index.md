@@ -4,9 +4,9 @@
 
 | Check | Result |
 |---|---|
-| `<test file>` | <runs, failures — which ones> |
-| `npx tsc --noEmit` | <n> errors (pre-existing) |
-| rubocop on files to be edited | <n> offences |
+| `<test command> <file>` | <runs, failures — which ones> |
+| Type check (`<profile command>`) | <n> errors (pre-existing) / — not in profile |
+| Lint on files to be edited (`<profile command>`) | <n> offences |
 
 ## Logs
 
@@ -26,8 +26,9 @@
 
 | Check | Result |
 |---|---|
-| `<test file>` | <runs, assertions, 0 failures> |
-| `RAILS_ENV=test bin/rails webpacker:compile` | <exit 0 / not needed — no asset change> |
-| `npx tsc --noEmit` | <n> errors — none in changed files / same as baseline |
-| rubocop on changed files | no new offences |
-| Full suite (`bundle exec rails test`, what CI runs) | <not run locally — why> |
+| `<test command> <file>` | <runs, assertions, 0 failures> |
+| Build / compile (`<profile command>`) | <exit 0 / not needed — why> |
+| Type check | <n> errors — none in changed files / same as baseline |
+| Lint on changed files | no new offences |
+| Schema / migration check | <ok / not needed — no migration> |
+| Full suite (`<profile command>`, what CI runs) | <run: result / not run locally — why> |

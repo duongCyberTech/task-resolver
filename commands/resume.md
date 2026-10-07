@@ -1,9 +1,6 @@
 ---
-name: "TRLR: Resume"
-description: "Restore an archived task into the empty workspace, or adopt a workspace started by /implement-task, and rebuild STATUS.md"
+description: "Restore an archived task into the empty workspace, or adopt a workspace started by hand, and rebuild STATUS.md"
 argument-hint: "[task-logs folder]"
-category: "Workflow"
-tags: ["workflow", "task-resolver"]
 disallowed-tools:
   - Bash(git add *)
   - Bash(git commit *)
@@ -27,9 +24,9 @@ disallowed-tools:
   - Bash(git branch -D *)
 ---
 
-Load the **task-resolver** skill (Skill tool, or read `.claude/skills/task-resolver/SKILL.md`). Its paths, non-negotiables, STATUS protocol and gate protocol apply throughout.
+Invoke the **task-resolver** skill with the Skill tool (`task-resolver:task-resolver`). Only if that fails, read `${CLAUDE_PLUGIN_ROOT}/skills/task-resolver/SKILL.md`. Its paths, non-negotiables, STATUS protocol and gate protocol apply throughout.
 
-Then follow `.claude/skills/task-resolver/stages/resume.md`:
+Then follow `${CLAUDE_PLUGIN_ROOT}/skills/task-resolver/stages/resume.md`:
 
 - **With a folder:** the workspace must be empty. Restore the archived task into it, then re-check the branch, the key files and whether the requirements have drifted.
 - **Without one:** adopt the current workspace by rebuilding STATUS.md from what is in its stage folders. If it's unclear whether a gate was answered, treat it as unanswered and ask.

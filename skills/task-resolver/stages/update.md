@@ -1,8 +1,8 @@
-# Update the plan (`/trlr:update [change] [attachment…]`)
+# Update the plan (`/task-resolver:update [change] [attachment…]`)
 
-This revises the implementation plan that already exists, and keeps every file that depends on it consistent: the decisions, the sub-tasks, STATUS, and any implementation or scenarios already written. It is the trlr counterpart of `/opsx:update`.
+This revises the implementation plan that already exists, and keeps every file that depends on it consistent: the decisions, the sub-tasks, STATUS, and any implementation or scenarios already written.
 
-It never edits code and never writes a plan from scratch. If there is no `planning/index.md` yet, stop: suggest `/trlr:plan <change>` (or, during Discuss, answering at G1), and write nothing.
+It never edits code and never writes a plan from scratch. If there is no `planning/index.md` yet, stop: suggest `/task-resolver:plan <change>` (or, during Discuss, answering at G1), and write nothing.
 
 ## 1. Parse the input
 
@@ -23,10 +23,12 @@ Store each one under `planning/revisions/R<NN>-<slug>/`, and read it fully befor
 |---|---|
 | Image (png/jpg/gif/webp) | view it, and describe in the revision record what it shows that bears on the plan (layout, labels, states) |
 | Video (mov/mp4) | extract frames ([../references/verification.md](../references/verification.md#mockups-and-recordings)) and cite them by id |
-| HTML mockup | open it in Playwright, then screenshot the states it adds or changes |
+| HTML mockup | open it in the browser tool (Playwright MCP), then screenshot the states it adds or changes |
 | Markdown / text / PDF | read it in full, and quote the parts that change the plan verbatim in the record |
 | Folder | list it, then treat each file as above |
 | Pasted in chat (not on disk) | describe it in the record and note "pasted in chat, not on disk" |
+
+A credentials file (`.env*`, private keys, token or secrets files) is never copied, even when attached: record its path, say why it wasn't stored, and quote only the non-secret parts that bear on the plan.
 
 Media over ~5 MB is not copied. Record its path, size and sha256, and store the extracted frames instead.
 
@@ -39,7 +41,7 @@ If an attachment is a new version of a requirement file, the requirement itself 
 | **Refinement** | within the requirement and the G1 decisions | edit the plan files |
 | **Decision change** | overturns or amends a G1 decision | also add a dated amendment to `discussion/NN-decisions.md` (never rewrite the original answer) |
 | **New scope** | beyond the requirement | also add a row to STATUS → Scope changes; needs an explicit yes |
-| **Intent change** | a different approach altogether, or a different task | **don't update.** Propose moving the current plan to `superseded/<name>/` and re-running `/trlr:plan` (or `/trlr:feedback reloop`), and stop |
+| **Intent change** | a different approach altogether, or a different task | **don't update.** Propose moving the current plan to `superseded/<name>/` and re-running `/task-resolver:plan` (or `/task-resolver:feedback reloop`), and stop |
 
 When unsure between two kinds, pick the heavier one.
 
@@ -92,19 +94,20 @@ End the turn with the gate block:
 4. In `planning/index.md`, add a row to the **Revisions** table. Sub-tasks needing rework get status ⟳ in the sub-task table.
 5. In STATUS, add a Revisions row and a Gate log row. Add a Scope changes row if the kind is new scope, and set Implement to `▶ n/m (⟳ k rework)` if anything is affected.
 6. Mark affected scenarios **stale** in `testing/scenarios/index.md`, and apply the approved edits to their steps.
+7. If STATUS → *Plan format* is `html`, re-render the HTML plan ([plan.md](plan.md#render-the-html-after-the-markdown-plan-is-written)), keeping the previous rendering in `planning/html/v<N>/`.
 
 ## 6. Next step (advice only; don't act on it)
 
 | State after the revision | Suggest |
 |---|---|
 | Plan still ⏸ G2 | review it, then answer G2 |
-| Approved, nothing implemented yet | `/trlr:apply` |
-| Approved, with ⟳ rework sub-tasks | `/trlr:apply`: it implements the delta first, logging it as `NN-rework-R<NN>-<slug>.md` |
-| Stale scenarios | after rework, `/trlr:test` re-runs them (they need G3 again if their steps changed) |
+| Approved, nothing implemented yet | `/task-resolver:apply` |
+| Approved, with ⟳ rework sub-tasks | `/task-resolver:apply`: it implements the delta first, logging it as `NN-rework-R<NN>-<slug>.md` |
+| Stale scenarios | after rework, `/task-resolver:test` re-runs them (they need G3 again if their steps changed) |
 
 ## Guardrails
 
-- Planning files only: `planning/`, the decisions amendment, STATUS, and scenario files. **Never touch code.** If the revision implies code changes, that is `/trlr:apply`'s job.
+- Planning files only: `planning/`, the decisions amendment, STATUS, and scenario files. **Never touch code.** If the revision implies code changes, that is `/task-resolver:apply`'s job.
 - Nothing is deleted. A dropped sub-task is marked ♻ in the table and its file moves to `superseded/`.
 - Follow the requirement's constraints. If the change needs files outside `Allowed files`, that is a scope change.
 - The confirmation must be a real user message. A revision drafted from a subagent's or reviewer's suggestion still waits for the user.

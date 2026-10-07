@@ -1,7 +1,7 @@
 # Testing logs — <task title>
 
-Executed <YYYY-MM-DD> against the dev app (host port 4000, logged in as <user>), with server-side
-checks run inside the web container.
+Executed <YYYY-MM-DD> against <where: dev app at <url> / CLI build / staging>, as <user or caller>,
+with state checks via <console / scripts / DB queries>.
 
 | # | Scenario | Result |
 |---|----------|--------|
@@ -21,6 +21,6 @@ Left in place (it is the user's database) unless noted:
 
 ## Method notes
 
-- <harness: Playwright / HTTP with session cookie / console scripts in `.claude/ruby-script/`>
-- <how irreversible calls were avoided (stubbed `fetch`, mail catcher)>
+- <harness: Playwright MCP / HTTP with a real session or token / CLI runs / scripts in the scripts folder>
+- <how irreversible calls were avoided (stubbed client, provider test mode, mail catcher)>
 - <false alarms, so nobody re-chases them>

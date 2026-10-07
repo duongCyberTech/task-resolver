@@ -22,7 +22,7 @@
 ### To resume  <!-- only if unfinished -->
 
 <the exact next step (e.g. "get approval on testing/scenarios/ — two questions in its index"), what
-to restore (`/trlr:resume <this folder>`), and what state the code is in (committed? which branch?)>
+to restore (`/task-resolver:resume <this folder>`), and what state the code is in (committed? which branch?)>
 
 ### ⚠️ Where the code is  <!-- only if the key files are not in the current checkout -->
 
@@ -79,12 +79,10 @@ to restore (`/trlr:resume <this folder>`), and what state the code is in (commit
 
 | CI-equivalent check | Result |
 |---|---|
-| `RAILS_ENV=test bin/rails webpacker:compile` | |
-| `npx tsc --noEmit` | |
-| rubocop on changed files | |
-| Full suite (`bundle exec rails test`) | <run / not run locally — why> |
+| <each CI-equivalent check from the project profile> | <result / not needed — why> |
+| Full suite (`<profile command>`) | <run / not run locally — why> |
 
-**Not covered by any automated test:** <e.g. the JavaScript — there is no JS harness>
+**Not covered by any automated test:** <e.g. the client-side code — there is no harness for it>
 
 ## Traps recorded during the build
 

@@ -1,19 +1,20 @@
-# Archive (`/trlr:archive [slug]`): replaces `/clear_workspace`
+# Archive (`/task-resolver:archive [slug]`)
 
 This stage moves the task from the workspace into `task-logs/`, writes a summary that someone can pick up cold, and then clears the workspace. It can run at any stage. An unfinished task gets a **To resume** section.
 
-**Parking** is normal: the user archives a task that is waiting at a gate so they can start the next one. The **To resume** section and `/trlr:resume` bring it back. Never start a new task on top of an unarchived one. When that happened on 09-15, the earlier discussion was pushed into a `discussion/archive/` subfolder, deleted later, and its links left dangling.
+**Parking** is normal: the user archives a task that is waiting at a gate so they can start the next one. The **To resume** section and `/task-resolver:resume` bring it back. Never start a new task on top of an unarchived one. When that happened once, the earlier discussion was pushed into a `discussion/archive/` subfolder, deleted later, and its links left dangling.
 
 ## 1. Pre-flight
 
 - Read STATUS.md. If it's missing, adopt the workspace first ([resume.md](resume.md) → Adopt).
 - Target folder: `task-logs/<Started date>-<slug>/`. If it already exists (a resumed task), archive **into** it: overwrite files with the same name, never delete archived files, and add `Re-archived <date>` to the summary header.
-- **Where the code is.** Read the branch from `.git/HEAD`, and check that the key new files listed in `implementation/index.md` exist in the working tree. If they don't, the summary must say *the code is not in this checkout* and name the branch recorded in STATUS. Three past archives had to say this without being able to name the branch.
+- **Where the code is.** Read the branch from `.git/HEAD`, and check that the key new files listed in `implementation/index.md` exist in the working tree. If they don't, the summary must say *the code is not in this checkout* and name the branch recorded in STATUS. Several past archives had to say this without being able to name the branch.
 - **Committed or not.** Run `git status --short -- <files>` and `git log -1 --oneline` if the requirement allows git reads. Otherwise write "not checked (git reads not allowed)".
 
 ## 2. Copy
 
 ```bash
+mkdir -p .claude/workflows/task-logs/<folder>
 cp -a .claude/workflows/workspace/. .claude/workflows/task-logs/<folder>/
 ```
 
@@ -36,24 +37,23 @@ Start from [../templates/SUMMARY.md](../templates/SUMMARY.md) and build it **fro
 
 ## 4. Verify, then clear
 
-1. Run the check:
+1. Run the check on its own first. It is read only:
    ```bash
-   bash .claude/skills/task-resolver/scripts/archive-check.sh \
+   bash ${CLAUDE_SKILL_DIR}/scripts/archive-check.sh \
      .claude/workflows/workspace .claude/workflows/task-logs/<folder>
    ```
    It compares every workspace file's sha256 with its archive copy, then checks that the relative links in the archive's markdown resolve. It exits non-zero if anything fails.
-2. If links point into `workspace/`, or at workframe files that are now in `requirements/`, fix them and re-run the check.
-3. Clear only if the check prints `ARCHIVE-OK`. Delete the workspace contents and recreate the empty skeleton:
+2. If links point into `workspace/`, or at workframe files that are now in `requirements/`, fix them in the archive and re-run the check.
+3. Clear with the same script, passing `--clear`. It re-runs both checks and empties the workspace (recreating the empty skeleton) only if they pass, in the same run. It refuses any folder that isn't a `.claude/workflows/workspace`:
    ```bash
-   W=.claude/workflows/workspace
-   find "$W" -mindepth 1 -delete
-   mkdir -p "$W"/{discussion,planning,implementation,testing,code-review}
+   bash ${CLAUDE_SKILL_DIR}/scripts/archive-check.sh --clear \
+     .claude/workflows/workspace .claude/workflows/task-logs/<folder>
    ```
-   If the check fails, stop and report. Do not clear.
+   Never clear the workspace any other way. If the script prints `ARCHIVE-FAIL`, stop and report: nothing was cleared.
 
 ## 5. After
 
-- If the task resolved an issue in `.claude/issues/`, mark it resolved there with a timestamp.
-- Save repo-wide traps learned during this task to memory if they aren't there already: one memory per fact, updating an existing memory rather than duplicating it.
+- If the task resolved a linked issue, update it the way the requirement or `workframe/rules/` says (SKILL.md, non-negotiable 10).
+- Add repo-wide traps learned during this task to the project profile under *Known traps*, if they aren't there already. If the user keeps a memory system, save them there too: one memory per fact, updating an existing memory rather than duplicating it.
 - Leave `workframe/` alone. It belongs to the user.
 - Reply with the archive path, the checkpoint table, the top open items and how to resume.

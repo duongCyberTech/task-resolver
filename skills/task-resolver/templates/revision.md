@@ -5,7 +5,7 @@
 
 ## Request, verbatim
 
-> <the `/trlr:update` text or chat message>
+> <the `/task-resolver:update` text or chat message>
 
 ## Attachments
 

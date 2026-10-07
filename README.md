@@ -1,0 +1,146 @@
+# Task Resolver
+
+A Claude Code plugin that runs a coding task through a gated, logged workflow, from requirement
+to reviewed, tested and archived change. It works with any language or framework: build, test
+and lint commands come from a **project profile** that is detected once per repo and that you
+confirm.
+
+```
+intake ─► discuss ─►⛩G1─► plan ─►⛩G2─► implement ─► test scenarios ─►⛩G3─► test run ─► audit ─► review ─►⛩feedback
+                                                                                                     │
+                         reloop: back to discuss (the finished loop is kept in loops/) ◄──────────────┤
+                                                                                        end ─► archive
+```
+
+- **Three approval gates.** G1 settles the open decisions, G2 approves the plan and G3 approves the test scenarios. Nothing crosses a gate without your reply.
+- **Everything leaves a file.** Discussion, plan, one log per sub-task, test logs, audit, code review. `STATUS.md` always says where the task stands.
+- **Verified in the running system**, not only by tests: the browser for web UIs, requests for APIs, the binary for CLIs, a scratch caller for libraries.
+- **Nothing is deleted.** Abandoned approaches move to `superseded/`. Archiving copies the workspace, checks every file's checksum and every link, and clears the workspace only if all of it passes.
+
+## Install
+
+From a local checkout, for one session:
+
+```
+claude --plugin-dir /path/to/task-resolver
+```
+
+`/plugin install` installs from a **marketplace**: a git repository with a `.claude-plugin/marketplace.json`
+that lists this plugin. This repo doesn't ship one yet. Once it's listed in one:
+
+```
+/plugin marketplace add <owner>/<repo>
+/plugin install task-resolver@<marketplace-name>
+```
+
+## Quick start
+
+```
+/task-resolver:setup                 # creates .claude/workflows/ and drafts the project profile
+# write .claude/workflows/workframe/requirements/index.md
+/task-resolver:start                 # intake + discussion, stops at G1
+go                                   # or answer by number: "Q1: A, Q3: default"
+/task-resolver:next                  # continue to the next gate, any time
+```
+
+## Commands
+
+| Command | What it does |
+|---|---|
+| `/task-resolver:setup` | Create the folder tree and detect the stack into `workframe/project.md` |
+| `/task-resolver:start [slug]` | Intake, requirements snapshot, discussion; stops at **G1** |
+| `/task-resolver:plan [--html]` | Plan from the decisions; stops at **G2**. `--html` also renders the plan as HTML (see below) |
+| `/task-resolver:apply [follow-up]` | Implement sub-task by sub-task, with baseline, logs, CI-equivalent checks and verification |
+| `/task-resolver:test` | Write scenarios (stops at **G3**), then run and log them |
+| `/task-resolver:audit` | Security review of the change set |
+| `/task-resolver:review` | Code review, reproduce each finding, fix what is in scope; stops at the feedback gate |
+| `/task-resolver:feedback [reloop\|end]` | Reloop with your feedback, or end the task |
+| `/task-resolver:update [change] [files…]` | Revise the plan coherently (rework and stale scenarios marked) |
+| `/task-resolver:archive [slug]` | Archive to `task-logs/`, verify, clear the workspace |
+| `/task-resolver:resume [folder]` | Restore an archived task, or adopt a hand-started workspace |
+| `/task-resolver:status` | Read-only report |
+| `/task-resolver:next` | Drive: run stages until the next gate |
+
+## Files in your repo
+
+```
+.claude/workflows/
+├── config.json           stages to run + installed plugins / MCPs / skills
+├── workframe/            yours: the inputs
+│   ├── project.md        project profile: stack, commands, CI checks, how to verify (edit freely)
+│   ├── requirements/     index.md + linked files: the task
+│   ├── rules/            standing rules for every task (optional)
+│   └── feedbacks/        feedback files (optional)
+├── workspace/            the live task (STATUS.md + one folder per stage)
+├── task-logs/            archived tasks
+└── scripts/              one-off verification scripts
+```
+
+## Configuration: `config.json`
+
+`.claude/workflows/config.json` (copied from the plugin's `config.json` by `setup`) says which stages
+this repo runs, and which extras are installed for the workflow:
+
+```json
+{
+  "stages": ["requirements", "discuss", "plan", "implement", "test", "audit", "code review", "feedback", "archive"],
+  "plugins": [{ "id": "html-plan@claude-community", "scope": "project", "use_for": ["plan --html"] }],
+  "mcps":    [{ "name": "playwright", "scope": "user", "use_for": ["implement", "test"] }],
+  "skills":  [{ "name": "security-audit", "scope": "project", "use_for": ["audit"] }]
+}
+```
+
+- **stages**: `requirements`, `plan`, `implement` and `archive` always run. Leave out `discuss`
+  (no G1; questions are settled at G2), `test` (no G3), `audit`, `code review` or `feedback` (the task
+  ends after review). The list is fixed per task at intake.
+- **plugins / mcps / skills**: what is installed besides Claude Code's defaults, with its scope.
+  `setup` fills these in from what it detects. `plan --html` adds `html-plan` after installing it.
+  Stages check the lists before using an extra, and fall back when one is missing.
+
+Full rules: [`skills/task-resolver/references/config.md`](skills/task-resolver/references/config.md).
+
+Optional lines in `requirements/index.md` constrain a task: `Allowed files: …`,
+`Git command allowed: …` (read only by default) and `Environments: …`.
+
+## Supported stacks
+
+`scripts/detect-stack.sh` recognises the following, and is monorepo-aware up to three levels deep:
+
+JavaScript/TypeScript (npm, pnpm, yarn, bun; Next, Nuxt, Angular, SvelteKit, Vue, React, React Native/Expo, NestJS, Express, Fastify, Remix, Electron, Vite) · Python (pip, uv, poetry, pipenv; Django, FastAPI, Flask) · Ruby / Rails · Go · Rust · Java/Kotlin (Maven, Gradle, Spring Boot, Android) · .NET · PHP (Laravel, Symfony) · Elixir / Phoenix · Dart / Flutter · Swift (SwiftPM, Xcode) · C/C++ (CMake, Meson) · plus Makefile/just/Task runners, Docker Compose / devcontainers, and CI configs (GitHub Actions, GitLab, CircleCI, Jenkins, Azure, Bitbucket).
+
+The detector only makes suggestions. CI config is treated as the source of truth, and you
+confirm the profile. For any other stack, fill in `project.md` by hand: the workflow itself is
+language-agnostic.
+
+## Optional integrations
+
+None of these is required. The workflow falls back to something else when one is missing.
+
+| Integration | Used for | Install | Fallback |
+|---|---|---|---|
+| `html-plan` plugin | `/task-resolver:plan --html`: an HTML view of the plan in `planning/html/` | offered when you first use `--html`: you pick **user**, **project** or **local** scope, and it runs `claude plugin install html-plan@claude-community --scope <scope>` | the normal markdown plan |
+| Playwright MCP | Driving web UIs, screenshots, HTML mockups | `claude mcp add playwright npx @playwright/mcp@latest` | HTTP requests, or the project's own e2e runner |
+| Security audit skill | `/task-resolver:audit` | `npx skills add https://github.com/cloudflare/security-audit-skill --skill security-audit` | built-in `/security-review`, then a checklist pass |
+| `code-review` skill | `/task-resolver:review` | built into Claude Code | fresh-subagent review |
+| ffmpeg | Frames from screen recordings | your package manager | ask for stills |
+| Code graph tools (`understand-anything` plugin, `graphify`) | Faster discussion on large codebases | `/plugin install understand-anything` · `pipx install graphifyy && graphify install` | plain search |
+
+## Troubleshooting
+
+- **"blocked: outside the working directory"** when a stage reads its playbook. Your settings have
+  `permissions.blockReadsOutsideWorkingDirectories` on, and the plugin's stage and template files live
+  outside your project. Add the plugin folder (`/add-dir <plugin path>`, or `permissions.additionalDirectories`
+  in settings). The error names the path.
+
+## Development
+
+```
+python3 tools/lint.py            # add --strict to fail on warnings too
+```
+
+Runs `claude plugin validate --strict`, `bash -n` and shellcheck (when installed: `pip install shellcheck-py`),
+then checks permission rules in command frontmatter, links and anchors, `/task-resolver:*` references, stage
+numbering, path variables and the `config.json` schema.
+
+Requirements: `bash` and `python3` (archive link check). `sha256sum` or `shasum` is needed for the
+archive copy check; both work on Linux and macOS.

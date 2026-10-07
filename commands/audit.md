@@ -1,8 +1,5 @@
 ---
-name: "TRLR: Audit"
 description: "Security-audit the task's change set into testing/audits/index.md"
-category: "Workflow"
-tags: ["workflow", "task-resolver"]
 disallowed-tools:
   - Bash(git add *)
   - Bash(git commit *)
@@ -26,11 +23,11 @@ disallowed-tools:
   - Bash(git branch -D *)
 ---
 
-Load the **task-resolver** skill (Skill tool, or read `.claude/skills/task-resolver/SKILL.md`). Its paths, non-negotiables, STATUS protocol and gate protocol apply throughout.
+Invoke the **task-resolver** skill with the Skill tool (`task-resolver:task-resolver`). Only if that fails, read `${CLAUDE_PLUGIN_ROOT}/skills/task-resolver/SKILL.md`. Its paths, non-negotiables, STATUS protocol and gate protocol apply throughout.
 
-Then follow `.claude/skills/task-resolver/stages/audit.md`:
+Then follow `${CLAUDE_PLUGIN_ROOT}/skills/task-resolver/stages/audit.md`:
 
-- Audit this change set only. Use the project's `security-audit` skill; if it's unavailable, fall back to the built-in `security-review`. Record which one ran.
+- Audit this change set only. Use a `security-audit` skill if one is installed, else the built-in `security-review`, else your own checklist pass. Record which one ran.
 - Check each candidate before calling it a finding. Keep dropped candidates in the report, with the reasoning.
 - Continue to the code review.
 

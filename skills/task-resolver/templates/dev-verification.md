@@ -1,13 +1,15 @@
-# NN — Verification in the running app
+# NN — Verification in the running system
 
-**Task title:** Verification in the running app
+**Task title:** Verification in the running system
 
 ## Description
 
-Driven in the dev app (host port 4000) as <user>, after <asset state: dev-server running /
-manual compile>. Server-side checks: `.claude/ruby-script/<script>.rb`.
+Driven in <where: dev app at <url> / CLI build <version> / REPL / simulator> as <user or caller>,
+after <build state: dev server running / fresh build / migrations applied>. Method: <browser via
+Playwright MCP / HTTP requests / CLI runs / scratch program>. Server-side or state checks:
+`<scripts folder>/<script>`.
 
-**<Surface 1>** (<frame / screenshot>)
+**<Surface 1: page / endpoint / command / API>** (<screenshot / captured output>)
 
 | Action | Result |
 |---|---|
