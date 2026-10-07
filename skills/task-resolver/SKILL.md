@@ -109,11 +109,21 @@ Template: [templates/STATUS.md](templates/STATUS.md). Update it at each of these
 - stopping at a gate: add the exact question to the Gate log;
 - the user answering: add the answer to the Gate log, quoted or closely paraphrased, with the date;
 - scope, allowed files or the plan changing; dev data being written; a follow-up request arriving;
-- every **Stop point**.
+- every **Stop point**;
+- the branch changing (see **Branches**).
 
 Icons: ⬜ not started · ▶ in progress · ⏸ waiting at gate · ✅ done · ⏭ skipped (only on the user's say-so; record who and when) · ⛔ blocked · ♻ superseded · ⟳ rework (implemented, but a plan revision has changed it since).
 
 A stage that never ran is ⬜ at archive time, not ✅. The archive has to show the real state.
+
+## Branches
+
+STATUS → **Branches** records every branch the task's code is built on, so the summary can say where the code is.
+
+- **Read the branch**, without a git command, at intake, at the start of every stage, and before each sub-task, follow-up or fix: `cat .git/HEAD` gives `ref: refs/heads/<branch>`, or a bare SHA when the HEAD is detached (record it as `detached <sha>`). In a worktree or submodule, `.git` is a file holding `gitdir: <path>`, so read `<path>/HEAD` instead. In a multi-repo task, read each repo the change touches and fill the *Repo / root* column. Not a git repo: write "not a git repo" once.
+- **When it differs from the last row**, close that row's *To* date, add a new row, and add a History line. Ask the user if the switch was unexpected (it may be a mistake), but never switch back yourself (non-negotiable 8).
+- **Fill in the work** as it happens: each sub-task, follow-up, rework and review/audit fix goes in its row's *Work done here*, and its implementation log carries a `Branch:` line.
+- **Commits and merges** are filled in only with the git reads the requirement allows (default: `log`, `show`). For example, `git log --oneline -5 <branch>` gives the commits, and an empty `git log --oneline <target>..<branch>` means the branch is merged into `<target>`. Otherwise write "not checked (git reads not allowed)".
 
 ## Gates
 

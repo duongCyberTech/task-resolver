@@ -10,7 +10,7 @@
    ```
 3. In STATUS, add `Resumed <date> from task-logs/<folder>`. The current stage is the first one not marked ✅, unless the summary's **To resume** section says otherwise; if it does, it wins.
 4. Re-check the world:
-   - Compare the current branch with the one recorded.
+   - Read the current branch and compare it with the last row of STATUS → Branches. If it differs, add a row (role: *resumed*) and tell the user which branch the code was last built on.
    - Confirm the key files are still in the tree.
    - Check for requirement drift. The workframe probably holds a different task by now, so work from the snapshot and don't overwrite it.
    - Check that pending migrations and the test database (or other fixtures) match the code, using the project profile's commands.

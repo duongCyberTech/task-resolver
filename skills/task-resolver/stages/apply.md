@@ -20,14 +20,15 @@ The original log stays as it is; it records what was built before the revision.
 
 ## Per sub-task, in the plan's build order
 
+0. Read the branch (SKILL.md → Branches). If it changed since the last STATUS row, add a row before you edit anything.
 1. Implement exactly that sub-task. Mirror existing patterns: find the nearest sibling feature and copy its shape (structure, naming, error handling, test style). Follow the language's and the repo's conventions, not habits from another stack.
 2. Run its tests, per file. Fix until they are green, or until you hit a Stop point.
 3. Write `implementation/NN-<slug>.md` ([template](../templates/implementation-log.md)). It records:
-   - Title and Task title;
+   - Title, Task title and Branch;
    - Description: what changed and why, with `file:line`;
    - Verification: the command and its result line;
    - Issues: every departure from the plan and why, traps hit, anything flagged but not fixed.
-4. Update the sub-task's status in `planning/index.md` and in STATUS (`Implement ▶ 4/11`).
+4. Update the sub-task's status in `planning/index.md` and in STATUS (`Implement ▶ 4/11`), and add the sub-task to its branch's *Work done here* in STATUS → Branches.
 
 **Deviations.** A small, obviously correct departure, such as reordering two guards so an unauthorised caller gets "not found" instead of a permission error, can go ahead: record it in *Issues* and later in the SUMMARY. Anything that changes behaviour, scope, data or a decision is a Stop point.
 

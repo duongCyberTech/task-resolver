@@ -14,7 +14,7 @@
 2. Copy the binding constraints into STATUS → Constraints: allowed files, allowed git commands, environments, and any "must", "only" or "don't".
 3. Derive `<slug>`: kebab-case, 2–5 words, taken from the requirement's title (`$ARGUMENTS` may supply it). The archive folder will be `<today>-<slug>`.
 4. Snapshot the requirements into `workspace/requirements/` and write the manifest into STATUS. Skip media over 5 MB and record those files by path and size instead.
-5. Record the branch with `cat .git/HEAD` (no git command needed). If the repo isn't a git repo, write "not a git repo".
+5. Record the branch as row 1 of STATUS → **Branches**, role *intake* (SKILL.md → Branches tells you how to read it without a git command). If the repo isn't a git repo, write "not a git repo".
 6. Create `STATUS.md` from [../templates/STATUS.md](../templates/STATUS.md), with Intake ✅. Copy the config's stage list into *Stages*, and mark each left-out stage `⏭ excluded (config)` in the checkpoint ([../references/config.md](../references/config.md#stages)). Set the next included stage to ▶: Discuss, or Plan if `discuss` is excluded. **If `discuss` is excluded, skip sections 2 and 3 below** and continue to [plan.md](plan.md). The plan then carries the open questions.
 7. Open every HTML mockup. Decode recordings into frames ([../references/verification.md](../references/verification.md#mockups-and-recordings)). From then on, cite frames by id (`f003`). If a mockup the requirement names isn't in the repo, write that down.
 

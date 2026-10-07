@@ -1,7 +1,7 @@
 # <Task title> — task summary
 
 **Archived:** <YYYY-MM-DD> · **Worked:** <start> → <end> · **Loops:** <n>
-**Branch:** `<from STATUS / .git/HEAD>` · **Commit(s):** <hash + subject, or "uncommitted", or "not checked (git reads not allowed)">
+**Branches:** `<branch>` (+ <n> more, see **Branches**) · **Commit(s):** <hash + subject, or "uncommitted", or "not checked (git reads not allowed)">
 **Requirements:** [`requirements/`](requirements/) — <files> (snapshot; the workframe is overwritten by the next task)
 
 <2–4 lines: what the feature does for the user, and the one design fact that shaped it.>
@@ -27,6 +27,16 @@ to restore (`/task-resolver:resume <this folder>`), and what state the code is i
 ### ⚠️ Where the code is  <!-- only if the key files are not in the current checkout -->
 
 <branch recorded, files checked, what was found>
+
+## Branches
+
+Where this task's code was built, and where it is now. From STATUS → Branches, checked again at archive time.
+
+| # | Branch | Repo / root | Role | From → to | Work done here | Commits | Merged into |
+|---|---|---|---|---|---|---|---|
+| 1 | `<branch>` | `.` | intake / implementation / fixes / follow-up | <date → date> | <sub-tasks NN, fixes, follow-ups> | <hashes / uncommitted / not checked> | <branch + date / no / not checked> |
+
+**Where the code is now:** <e.g. "all of it on `feature/x`, uncommitted" · "merged into `main` at <hash>" · "sub-tasks 01–03 on `feature/a`, 04–05 on `feature/b`, not merged" · "not in this checkout (see below)">
 
 ---
 

@@ -1,6 +1,7 @@
 # NN — <title>
 
 **Task title:** <sub-task title, as in the plan>
+**Branch:** `<from .git/HEAD when the work was done>` <(repo / root, if not `.`)>
 
 ## Description
 

@@ -5,7 +5,7 @@
 | Slug / archive folder | `<YYYY-MM-DD>-<slug>` |
 | Started | <YYYY-MM-DD> |
 | Loop | 1 |
-| Branch at intake | `<from .git/HEAD>` |
+| Branch now | `<from .git/HEAD>` — full history in **Branches** below |
 | Requirements | `.claude/workflows/workframe/requirements/index.md` → <files> |
 | Project profile | `.claude/workflows/workframe/project.md` — <stack, one line> (confirmed <date> / draft) |
 | Snapshot | `requirements/` taken <date> (at intake / at adoption) |
@@ -22,6 +22,15 @@
 | Git allowed | <e.g. diff> |
 | Environments | <e.g. development, staging> |
 | Other | <must / only / don't lines, quoted> |
+
+## Branches
+
+Every branch this task's code has been built on, in order. A row is added whenever the branch read at a
+stage start or before a sub-task differs from the last row (SKILL.md → Branches).
+
+| # | Branch | Repo / root | Role | From | To | Work done here | Commits | Merged into |
+|---|---|---|---|---|---|---|---|---|
+| 1 | `<branch, or detached <sha>>` | `.` | intake | <date> | <date / —> | <stages, sub-tasks NN, follow-ups, fixes> | <hashes, "uncommitted", or "not checked"> | <branch + date / no / not checked> |
 
 ## Checkpoint
 

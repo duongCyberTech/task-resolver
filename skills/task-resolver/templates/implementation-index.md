@@ -10,11 +10,11 @@
 
 ## Logs
 
-| # | Sub-task | Log | Deviations from plan |
-|---|---|---|---|
-| 1 | <title> | [01-<slug>.md](01-<slug>.md) | <none / short> |
-| — | Dev verification | [NN-dev-verification.md](NN-dev-verification.md) | |
-| — | Follow-up: <…> | [NN-followup-<slug>.md](NN-followup-<slug>.md) | |
+| # | Sub-task | Log | Branch | Deviations from plan |
+|---|---|---|---|---|
+| 1 | <title> | [01-<slug>.md](01-<slug>.md) | `<branch>` | <none / short> |
+| — | Dev verification | [NN-dev-verification.md](NN-dev-verification.md) | `<branch>` | |
+| — | Follow-up: <…> | [NN-followup-<slug>.md](NN-followup-<slug>.md) | `<branch>` | |
 
 ## Files
 

@@ -8,7 +8,8 @@ This stage moves the task from the workspace into `task-logs/`, writes a summary
 
 - Read STATUS.md. If it's missing, adopt the workspace first ([resume.md](resume.md) → Adopt).
 - Target folder: `task-logs/<Started date>-<slug>/`. If it already exists (a resumed task), archive **into** it: overwrite files with the same name, never delete archived files, and add `Re-archived <date>` to the summary header.
-- **Where the code is.** Read the branch from `.git/HEAD`, and check that the key new files listed in `implementation/index.md` exist in the working tree. If they don't, the summary must say *the code is not in this checkout* and name the branch recorded in STATUS. Several past archives had to say this without being able to name the branch.
+- **Where the code is.** Read the current branch (SKILL.md → Branches) and add a row if it changed. Check that the key new files listed in `implementation/index.md` exist in the working tree. If they don't, the summary must say *the code is not in this checkout* and name the branches recorded in STATUS → Branches. Several past archives had to say this without being able to name the branch.
+- **Each branch's state.** Where git reads are allowed, fill in every row's *Commits* and *Merged into* (SKILL.md → Branches); otherwise write "not checked (git reads not allowed)".
 - **Committed or not.** Run `git status --short -- <files>` and `git log -1 --oneline` if the requirement allows git reads. Otherwise write "not checked (git reads not allowed)".
 
 ## 2. Copy
@@ -23,7 +24,8 @@ Copy everything: STATUS.md, `requirements/`, every stage folder, demos, frames, 
 ## 3. SUMMARY.md
 
 Start from [../templates/SUMMARY.md](../templates/SUMMARY.md) and build it **from the files**, not from memory. It must include:
-- **Header:** Archived · Worked (from–to) · Branch · Commit(s), if known · Requirements (paths inside the archive's `requirements/`, not the workframe's).
+- **Header:** Archived · Worked (from–to) · Branches · Commit(s), if known · Requirements (paths inside the archive's `requirements/`, not the workframe's).
+- **Branches:** the table from STATUS → Branches, with every row's commits and merge state, and one line saying where the code is now.
 - **The requirement, verbatim**, in a quote block.
 - **Checkpoint:** the table from STATUS, showing the true states, with ⬜ for stages that never ran.
 - **To resume** (if unfinished): the exact next step, and what to restore.
