@@ -75,7 +75,7 @@ def run(cmd, cwd=ROOT):
 # ---------------------------------------------------------------- external validators
 def external():
     if shutil.which("claude"):
-        for target in (".", "commands", "skills"):
+        for target in (".claude-plugin/plugin.json", ".claude-plugin/marketplace.json", "commands", "skills"):
             code, out = run(["claude", "plugin", "validate", "--strict", target])
             if code:
                 report("ERROR", ROOT / target, None, "claude plugin validate --strict failed:\n    " + out.replace("\n", "\n    "))

@@ -1,0 +1,16 @@
+{
+  "name": "duongcybertech",
+  "owner": { "name": "Mai Dang Duong", "email": "maidangduong92tn@gmail.com" },
+  "metadata": {
+    "description": "Claude Code plugins by duongCyberTech"
+  },
+  "plugins": [
+    {
+      "name": "task-resolver",
+      "source": "./",
+      "description": "Gated, logged task workflow for any language or framework: requirements → discuss → plan → implement → test → audit → code review → feedback → archive.",
+      "category": "workflow",
+      "keywords": ["workflow", "task", "planning", "code-review", "testing", "audit"]
+    }
+  ]
+}

@@ -19,19 +19,21 @@ intake ─► discuss ─►⛩G1─► plan ─►⛩G2─► implement ─► 
 
 ## Install
 
-From a local checkout, for one session:
+This repo is its own marketplace (`.claude-plugin/marketplace.json`, name `duongcybertech`):
 
 ```
-claude --plugin-dir /path/to/task-resolver
+/plugin marketplace add duongCyberTech/task-resolver
+/plugin install task-resolver@duongcybertech
 ```
 
-`/plugin install` installs from a **marketplace**: a git repository with a `.claude-plugin/marketplace.json`
-that lists this plugin. This repo doesn't ship one yet. Once it's listed in one:
+or from a shell: `claude plugin marketplace add duongCyberTech/task-resolver && claude plugin install task-resolver@duongcybertech --scope user`
+(`--scope project` shares it with a repo's team through `.claude/settings.json`).
 
-```
-/plugin marketplace add <owner>/<repo>
-/plugin install task-resolver@<marketplace-name>
-```
+From a local checkout instead: `claude plugin marketplace add /path/to/task-resolver`, or for one session
+only, `claude --plugin-dir /path/to/task-resolver`.
+
+Updates: bump `version` in `.claude-plugin/plugin.json` and push; users get it with
+`claude plugin marketplace update duongcybertech` (or `/plugin`), then `claude plugin update task-resolver@duongcybertech`.
 
 ## Quick start
 
