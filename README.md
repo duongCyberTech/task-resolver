@@ -106,9 +106,29 @@ Optional lines in `requirements/index.md` constrain a task: `Allowed files: …`
 
 ## Supported stacks
 
-`scripts/detect-stack.sh` recognises the following, and is monorepo-aware up to three levels deep:
+`scripts/detect-stack.sh` recognises the following:
 
-JavaScript/TypeScript (npm, pnpm, yarn, bun; Next, Nuxt, Angular, SvelteKit, Vue, React, React Native/Expo, NestJS, Express, Fastify, Remix, Electron, Vite) · Python (pip, uv, poetry, pipenv; Django, FastAPI, Flask) · Ruby / Rails · Go · Rust · Java/Kotlin (Maven, Gradle, Spring Boot, Android) · .NET · PHP (Laravel, Symfony) · Elixir / Phoenix · Dart / Flutter · Swift (SwiftPM, Xcode) · C/C++ (CMake, Meson) · plus Makefile/just/Task runners, Docker Compose / devcontainers, and CI configs (GitHub Actions, GitLab, CircleCI, Jenkins, Azure, Bitbucket).
+| Language | Package managers / build tools | Frameworks detected | Suggested checks |
+|---|---|---|---|
+| JavaScript / TypeScript | npm, pnpm, yarn, bun | Next, Nuxt, Angular, SvelteKit, Svelte, Vue, React, React Native / Expo, NestJS, Express, Fastify, Remix, Electron, Vite | `package.json` scripts (test, lint, typecheck, build, dev)<br>`tsc --noEmit`<br>runners: Vitest, Jest, Mocha, Playwright, Cypress |
+| Python | pip, uv, poetry, pipenv | Django, FastAPI, Flask, Starlette | `pytest` or `manage.py test`<br>`ruff`, `mypy`, `pyright`<br>Django / Alembic migrations |
+| Ruby | Bundler | Rails | `rspec` or `rails test`<br>`rubocop`, `srb tc`<br>`rails db:migrate` |
+| Go | Go modules | — | `go test ./...`<br>`go vet`, `golangci-lint`<br>`go build ./...` |
+| Rust | Cargo | — | `cargo test`<br>`cargo clippy`, `cargo fmt --check`<br>`cargo build` |
+| Java / Kotlin | Maven, Gradle (wrappers preferred) | Spring Boot, Android | `mvn test` / `gradle test`<br>`gradle check`<br>package / build |
+| C# / F# (.NET) | dotnet (`.sln`, `.csproj`, `.fsproj`) | — | `dotnet test`<br>`dotnet format --verify-no-changes`<br>`dotnet build` |
+| PHP | Composer | Laravel, Symfony | `php artisan test` / `phpunit`<br>`phpstan`, `pint` / `php-cs-fixer`<br>`artisan migrate` |
+| Elixir | Mix | Phoenix | `mix test`<br>`mix credo`, `mix format --check-formatted` |
+| Dart | pub | Flutter | `flutter test` / `dart test`<br>`flutter analyze` / `dart analyze` |
+| Swift / Obj-C | SwiftPM, Xcode | — | `swift test` / `xcodebuild test`<br>`swift build` |
+| C / C++ | CMake, Meson | — | `ctest` / `meson test`<br>CMake build |
+
+| Also detected, any language | What it gives the profile |
+|---|---|
+| Task runners: Makefile, `justfile`, `Taskfile.yml` | targets such as `test`, `lint`, `check`, `build`, `dev` |
+| Containers: Docker Compose, Dockerfile, devcontainer, Tilt | where commands have to run (e.g. `docker compose exec <service> …`) |
+| CI: GitHub Actions, GitLab CI, CircleCI, Jenkins, Azure Pipelines, Bitbucket Pipelines | the source of truth for the CI-equivalent checks |
+| Monorepos | each sub-project up to three levels deep, reported with its own stack |
 
 The detector only makes suggestions. CI config is treated as the source of truth, and you
 confirm the profile. For any other stack, fill in `project.md` by hand: the workflow itself is
