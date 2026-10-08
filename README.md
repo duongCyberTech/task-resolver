@@ -51,7 +51,7 @@ go                                   # or answer by number: "Q1: A, Q3: default"
 |---|---|
 | `/task-resolver:setup` | Create the folder tree and detect the stack into `workframe/project.md` |
 | `/task-resolver:start [slug]` | Intake, requirements snapshot, discussion; stops at **G1** |
-| `/task-resolver:plan [--html]` | Plan from the decisions; stops at **G2**. `--html` also renders the plan as HTML (see below) |
+| `/task-resolver:plan [--html \| --artifact] [--interact] [--diagram <list>]` | Plan from the decisions; stops at **G2**. `--html`: HTML view (html-plan plugin, see below). `--artifact`: one Claude artifact per sub-task plus an overview. `--interact`: interactive view, with `--html` or `--artifact` only. `--diagram flow,sequence,erd,…`: the diagrams every sub-task carries |
 | `/task-resolver:apply [follow-up]` | Implement sub-task by sub-task, with baseline, logs, CI-equivalent checks and verification |
 | `/task-resolver:test` | Write scenarios (stops at **G3**), then run and log them |
 | `/task-resolver:audit` | Security review of the change set |
@@ -120,12 +120,12 @@ None of these is required. The workflow falls back to something else when one is
 
 | Integration | Used for | Install | Fallback |
 |---|---|---|---|
-| `html-plan` plugin | `/task-resolver:plan --html`: an HTML view of the plan in `planning/html/` | offered when you first use `--html`: you pick **user**, **project** or **local** scope, and it runs `claude plugin install html-plan@claude-community --scope <scope>` | the normal markdown plan |
+| `html-plan` plugin | `/task-resolver:plan --html`: an HTML view of the plan in `planning/html/` | offered when you first use `--html` (you pick **user**, **project** or **local** scope), then runs:<br>`claude plugin install html-plan@claude-community --scope <scope>` | the normal markdown plan |
 | Playwright MCP | Driving web UIs, screenshots, HTML mockups | `claude mcp add playwright npx @playwright/mcp@latest` | HTTP requests, or the project's own e2e runner |
 | Security audit skill | `/task-resolver:audit` | `npx skills add https://github.com/cloudflare/security-audit-skill --skill security-audit` | built-in `/security-review`, then a checklist pass |
 | `code-review` skill | `/task-resolver:review` | built into Claude Code | fresh-subagent review |
 | ffmpeg | Frames from screen recordings | your package manager | ask for stills |
-| Code graph tools (`understand-anything` plugin, `graphify`) | Faster discussion on large codebases | `/plugin install understand-anything` · `pipx install graphifyy && graphify install` | plain search |
+| Code graph tools (`understand-anything` plugin, `graphify`) | Faster discussion on large codebases | understand-anything:<br>`/plugin install understand-anything`<br>graphify:<br>`pipx install graphifyy`<br>`graphify install` | plain search |
 
 ## Troubleshooting
 

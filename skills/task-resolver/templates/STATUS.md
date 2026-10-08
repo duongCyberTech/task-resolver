@@ -10,7 +10,7 @@
 | Project profile | `.claude/workflows/workframe/project.md` — <stack, one line> (confirmed <date> / draft) |
 | Snapshot | `requirements/` taken <date> (at intake / at adoption) |
 | Stages | <from config.json at intake: requirements, discuss, plan, …> — excluded: <list / none> |
-| Plan format | markdown / html (html-plan, scope <…>) / markdown (--html declined <date>) |
+| Plan format | <markdown / html (html-plan, scope <…>) / artifact (overview: <url>)> · <interactive / static> · diagrams: <flow, …> — or why a view was dropped (--html declined / --artifact unavailable, <date>) |
 | **Current stage** | <e.g. Discuss — ⏸ waiting at G1> |
 | **Next action** | <e.g. user answers Q1–Q5, then `/task-resolver:next`> |
 

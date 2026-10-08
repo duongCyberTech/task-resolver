@@ -36,7 +36,7 @@ workspace/
 ├── STATUS.md             live checkpoint: stage, gates, scope, dev data, open items
 ├── requirements/         snapshot of the workframe, taken at intake (manifest in STATUS)
 ├── discussion/           index · 01..NN findings · NN-open-questions · NN-decisions
-├── planning/             index · 01..NN sub-task plans · html/ (with --html) · demo/ · demo-frames/ · revisions/R<NN>-*
+├── planning/             index · 01..NN sub-task plans · html/ (--html) · artifacts/ (--artifact) · demo/ · demo-frames/ · revisions/R<NN>-*
 ├── implementation/       index · one log per sub-task · NN-dev-verification · NN-*-fixes · NN-followup-*
 ├── testing/scenarios/    index · one file per scenario
 ├── testing/logs/         index · one log per executed scenario
@@ -60,7 +60,7 @@ intake ─► discuss ─►⛩G1─► plan ─►⛩G2─► implement ─► 
 |---|---|---|---|---|
 | 1 | Intake | `/task-resolver:start` | [stages/start.md](stages/start.md) | STATUS.md exists and the requirements are snapshotted |
 | 2 | Discuss | `/task-resolver:start` | [stages/start.md](stages/start.md) | **G1**: open questions answered |
-| 3 | Plan | `/task-resolver:plan [--html]` | [stages/plan.md](stages/plan.md) | **G2**: plan approved |
+| 3 | Plan | `/task-resolver:plan [--html \| --artifact] [--interact] [--diagram <list>]` | [stages/plan.md](stages/plan.md) | **G2**: plan approved |
 | 4 | Implement | `/task-resolver:apply` | [stages/apply.md](stages/apply.md) | every sub-task logged, tests and CI-equivalent checks green, change verified in the running system |
 | 5 | Test scenarios | `/task-resolver:test` | [stages/test.md](stages/test.md) | **G3**: scenarios approved |
 | 6 | Test run | `/task-resolver:test` | [stages/test.md](stages/test.md) | one log per scenario |

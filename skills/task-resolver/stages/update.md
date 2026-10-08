@@ -94,7 +94,11 @@ End the turn with the gate block:
 4. In `planning/index.md`, add a row to the **Revisions** table. Sub-tasks needing rework get status ⟳ in the sub-task table.
 5. In STATUS, add a Revisions row and a Gate log row. Add a Scope changes row if the kind is new scope, and set Implement to `▶ n/m (⟳ k rework)` if anything is affected.
 6. Mark affected scenarios **stale** in `testing/scenarios/index.md`, and apply the approved edits to their steps.
-7. If STATUS → *Plan format* is `html`, re-render the HTML plan ([plan.md](plan.md#render-the-html-after-the-markdown-plan-is-written)), keeping the previous rendering in `planning/html/v<N>/`.
+7. Re-render the views STATUS → *Plan format* names, with the same interactivity and diagram list:
+   - `html`: re-render the HTML ([plan.md](plan.md#render-the-html-after-the-markdown-plan-is-written)), keeping the previous rendering in `planning/html/v<N>/`;
+   - `artifact`: republish each changed page to its same URL ([plan.md](plan.md#artifact-plan---artifact)).
+
+   A revision that changes the diagram list (`/task-resolver:update --diagram …`) redraws every sub-task's *Diagrams* section.
 
 ## 6. Next step (advice only; don't act on it)
 

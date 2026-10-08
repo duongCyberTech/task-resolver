@@ -10,10 +10,17 @@
 
 - `<path>:<line>` — <why it matters: the pattern to mirror, the code to change>
 
-## Flow
+## Diagrams
 
-```
-<ASCII activity diagram: entry → guards → steps → outcomes, including the failure branches>
+<one subsection per diagram in STATUS → Plan format (default: flow). A diagram that doesn't apply: `n/a: <reason>`>
+
+### Flow
+
+```mermaid
+flowchart TD
+  A[<entry>] --> B{<guard>}
+  B -- no --> X[<failure outcome>]
+  B -- yes --> C[<step>] --> D[<outcome>]
 ```
 
 ## Migration

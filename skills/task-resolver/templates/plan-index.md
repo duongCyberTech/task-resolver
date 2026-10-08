@@ -2,7 +2,7 @@
 
 **Requirement:** [`requirements/index.md`](../requirements/index.md) → <files>
 **Decisions this plan implements:** [`../discussion/0N-decisions.md`](../discussion/0N-decisions.md)
-**HTML view:** <[html/index.html](html/index.html) — only with `--html`; otherwise delete this line>
+**Plan format:** <markdown / html / artifact> · <interactive / static> · diagrams: <flow, …>
 **Mockups / frames:** <paths, or "none in the repo — built from …">
 
 | # | Sub-task | Serves | Files | Status |
@@ -10,6 +10,15 @@
 | 1 | [<title>](01-<slug>.md) | <req § / Q#> | `<paths>` | ⬜ |
 
 Status: ⬜ · ▶ · ✅ · ⟳ rework (changed by a revision after it was built) · ♻ dropped (file in `superseded/`)
+
+## Views
+
+<only with --html or --artifact; otherwise delete this section>
+
+| Page | HTML file / artifact URL |
+|---|---|
+| Overview | <[html/index.html](html/index.html) / https://claude.ai/…> |
+| 01 — <title> | <… / https://claude.ai/…> |
 
 ## Revisions
 
