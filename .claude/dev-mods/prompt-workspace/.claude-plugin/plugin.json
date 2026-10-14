@@ -1,0 +1,15 @@
+{
+  "name": "prompt-workspace",
+  "version": "0.1.0",
+  "description": "Refines a prompt into Requirements / Objectives / Environment / Constraints / Rules and shows it in a Workspace pane to review and send; pauses /task-resolver:start until the refined requirement is approved",
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "model": {
+      "type": "string",
+      "title": "Refiner model",
+      "description": "Model that restructures prompts",
+      "default": "sonnet",
+      "options": ["haiku", "sonnet", "opus"]
+    }
+  }
+}
